@@ -1,35 +1,49 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IArtist } from "../../../types";
-import { fetchArtists } from "./artistsThunk";
+import { IAlbum, IArtist } from "../../../types";
+import { fetchArtist, fetchArtists } from "./artistsThunk";
+
 interface ArtistsState {
   items: IArtist[];
+  oneArtist: IArtist | null;
+  artistAlbums: IAlbum[];
+  artistFetching: boolean;
   itemsFetching: boolean;
 }
+
 const initialState: ArtistsState = {
   items: [],
+  oneArtist: null,
+  artistAlbums: [],
+  artistFetching: false,
   itemsFetching: false,
 };
+
 export const artistsSlice = createSlice({
   name: "artists",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchArtists.pending, (state) => {
+      .addCase(fetchArtists.rejected, (state) => {
+        state.itemsFetching = false;
+      })
+      .addCase(fetchArtist.pending, (state) => {
         state.itemsFetching = true;
       })
-      .addCase(fetchArtists.fulfilled, (state, { payload: artists }) => {
+      .addCase(fetchArtist.fulfilled, (state, { payload: artist }) => {
         state.itemsFetching = false;
-        state.items = artists;
+        state.oneArtist = artist;
       })
-      .addCase(fetchArtists.rejected, (state) => {
+      .addCase(fetchArtist.rejected, (state) => {
         state.itemsFetching = false;
       });
   },
   selectors: {
     selectArtists: (state) => state.items,
     selectLoad: (state) => state.itemsFetching,
+    selectArtist: (state) => state.oneArtist,
   },
 });
 export const artistsReducer = artistsSlice.reducer;
-export const { selectArtists, selectLoad } = artistsSlice.selectors;
+export const { selectArtists, selectLoad, selectArtist } =
+  artistsSlice.selectors;

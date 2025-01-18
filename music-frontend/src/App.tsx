@@ -1,10 +1,42 @@
 import "./App.css";
+import AppToolbar from "./ToolBar/ToolBar";
+import { Route, Routes } from "react-router-dom";
+import Artist from "./app/features/Artists/Artists";
+import Artists from "./app/features/Artists/Artists";
+import Albums from "./app/features/Albums/Albums";
 
 const App = () => {
   return (
-    <>
-      <div></div>
-    </>
+    <div>
+      <header className="bg-dark">
+        <AppToolbar />
+      </header>
+      <div className="container">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Artist />
+                <Artists />
+              </>
+            }
+          />
+          <Route
+            path="/artists/:id"
+            element={
+              <>
+                <Albums />
+              </>
+            }
+          />
+          <Route
+            path="*"
+            element={<h1 className="text-center">Not found</h1>}
+          />
+        </Routes>
+      </div>
+    </div>
   );
 };
 
