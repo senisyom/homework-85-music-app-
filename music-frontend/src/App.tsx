@@ -1,9 +1,11 @@
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import AppToolbar from "./ToolBar/ToolBar";
 import { Route, Routes } from "react-router-dom";
 import Artist from "./app/features/Artists/Artists";
 import Artists from "./app/features/Artists/Artists";
 import Albums from "./app/features/Albums/Albums";
+import Tracks from "./app/features/Tracks/Track";
 
 const App = () => {
   return (
@@ -27,6 +29,14 @@ const App = () => {
             element={
               <>
                 <Albums />
+              </>
+            }
+          />
+          <Route
+            path="/albums/:id"
+            element={
+              <>
+                <Tracks />
               </>
             }
           />

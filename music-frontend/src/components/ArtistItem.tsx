@@ -1,25 +1,21 @@
 import { NavLink } from "react-router-dom";
 import { API_URL } from "../constants";
-import dayjs from "dayjs";
 interface Props {
   id: string;
   name: string;
-  date: Date;
   image: string | null;
 }
-const AlbumsItem: React.FC<Props> = ({ id, name, image, date }) => {
+const ArtistItem: React.FC<Props> = ({ id, name, image }) => {
   let cardImage =
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUrgu4a7W_OM8LmAuN7Prk8dzWXm7PVB_FmA&s";
-
   if (image) {
     cardImage = `${API_URL}/images/${image}`;
   }
   return (
     <NavLink
-      to={`/albums/${id}`}
+      to={`/artists/${id}`}
       className="list-group-item d-flex align-items-center justify-content-between list-group-item-action"
     >
-      <div>{dayjs(date).format("DD.MM.YYYY HH:mm:ss")}</div>
       <div>{name}</div>
       <div
         style={{ width: "100px", height: "100px" }}
@@ -35,4 +31,4 @@ const AlbumsItem: React.FC<Props> = ({ id, name, image, date }) => {
     </NavLink>
   );
 };
-export default AlbumsItem;
+export default ArtistItem;

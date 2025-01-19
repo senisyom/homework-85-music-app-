@@ -4,7 +4,6 @@ import { fetchArtists } from "./artistsThunk";
 import { selectArtists, selectLoad } from "./artistsSlice";
 import ArtistItem from "../../../components/ArtistItem";
 
-
 const Artists = () => {
   const dispatch = useAppDispatch();
   const artists = useAppSelector(selectArtists);
@@ -19,7 +18,6 @@ const Artists = () => {
         id={artist._id}
         name={artist.name}
         image={artist.image}
-        date={artist.date}
       />
     ));
   }
