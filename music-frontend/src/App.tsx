@@ -7,6 +7,7 @@ import Artists from "./app/features/Artists/Artists";
 import Albums from "./app/features/Albums/Albums";
 import Tracks from "./app/features/Tracks/Track";
 import Register from "./app/features/User/Register";
+import Login from "./app/features/User/Login";
 
 const App = () => {
   return (
@@ -42,6 +43,7 @@ const App = () => {
             }
           />
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route
             path="*"
             element={<h1 className="text-center">Not found</h1>}

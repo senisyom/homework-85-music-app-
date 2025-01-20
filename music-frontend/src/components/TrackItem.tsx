@@ -1,20 +1,25 @@
-import { NavLink } from "react-router-dom";
+
 interface Props {
   id: string;
   name: string;
   trackNumber: number;
   duration: string;
+  buttonState: boolean;
 }
-const TrackItem: React.FC<Props> = ({ name, id, duration, trackNumber }) => {
+const TrackItem: React.FC<Props> = ({
+  name,
+  duration,
+  trackNumber,
+  buttonState,
+}) => {
   return (
-    <NavLink
-      to={`/track/${id}`}
-      className="list-group-item d-flex align-items-center justify-content-between list-group-item-action"
-    >
-      <div>{trackNumber}</div>
-      <div>{name}</div>
+    <div className="list-group-item d-flex align-items-center justify-content-between ">
+      {trackNumber}. {name}
       <div>{duration}</div>
-    </NavLink>
+      <button disabled={buttonState} className="ms-3 btn btn-dark">
+        play
+      </button>
+    </div>
   );
 };
 export default TrackItem;
