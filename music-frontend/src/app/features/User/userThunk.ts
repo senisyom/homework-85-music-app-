@@ -16,7 +16,7 @@ export const register = createAsyncThunk<
 >("user/register", async (registerMutation, { rejectWithValue }) => {
   try {
     const { data: user } = await axiosApi.post<IUser>(
-      "/user",
+      "/users",
       registerMutation
     );
     return user;
@@ -35,7 +35,7 @@ export const login = createAsyncThunk<
 >("users/login", async (loginMutation, { rejectWithValue }) => {
   try {
     const { data: user } = await axiosApi.post<IUser>(
-      "/user/sessions",
+      "/users/sessions",
       loginMutation
     );
     return user;

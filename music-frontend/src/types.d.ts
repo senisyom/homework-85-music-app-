@@ -46,3 +46,13 @@ export interface LoginMutation {
 export interface GlobalError {
   error: string;
 }
+
+export interface ITrackHistory {
+  _id: string;
+  date: string;
+  user: string;
+  track: string;
+}
+export interface TrackHistoryMutation {
+  track: string;
+}

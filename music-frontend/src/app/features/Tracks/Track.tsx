@@ -20,6 +20,7 @@ const Tracks = () => {
   const artist = useAppSelector(selectOneArtist);
   const user = useAppSelector(selectUser);
 
+    
   useEffect(() => {
     dispatch(fetchTracks(id));
     dispatch(fetchAlbum(id));

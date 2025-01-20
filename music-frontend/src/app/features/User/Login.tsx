@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useState } from "react";
 import { login } from "./userThunk";
 import { selectLoginError } from "./userSlice";
-import { GlobalError, LoginMutation } from "../../../types";
+import { LoginMutation } from "../../../types";
 
 const Login = () => {
   const [userState, setUserState] = useState<LoginMutation>({
