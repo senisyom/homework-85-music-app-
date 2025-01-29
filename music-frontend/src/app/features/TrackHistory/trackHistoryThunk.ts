@@ -12,12 +12,14 @@ import {
 
 export const getTrackHistory = createAsyncThunk<
   ITrackHistory[],
-  string | undefined
->("trackHistory/fetch", async (token) => {
-  if (token) {
-    const { data: tracks } = await axiosApi.get(`/track_history/${token}`);
-    return tracks;
-  }
+  void,
+  { state: RootState }
+>("trackHistory/fetch", async (_arg, { getState }) => {
+  const token = getState().users.user?.token;
+  const { data: tracks } = await axiosApi.get(`/track_history`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return tracks;
 });
 export const fetchTrack = createAsyncThunk<ITrack, string>(
   "track/fetchAll",
