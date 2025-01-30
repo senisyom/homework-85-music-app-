@@ -30,24 +30,34 @@ const Albums = () => {
     <h5 className="text-center my-5">No albums!</h5>
   );
 
-  if (!isFetching && albums.length > 0) {
-    content = albums.map((album) => (
-      <AlbumsItem
-        key={album._id}
-        image={album.image}
-        date={album.date}
-        name={album.name}
-        id={album._id}
-      />
-    ));
-  }
+  if (!isFetching) {
+        content = albumArtist.map((album) => {
+            if (user?.role === 'admin') {
+                console.log(user?.role);
+                return(
+                    <AlbumsItem key={album._id} image={album.image} date={album.date} name={album.name} id={album._id} isPublished={album.isPublished}/>
+                )
+            }
+            if (album.isPublished) {  
+                              
+                return(
+                    <AlbumsItem key={album._id} image={album.image} date={album.date} name={album.name} id={album._id} isPublished={album.isPublished}/>
+                )
+            }
+        });
+    }
 
-  return (
-    <>
-      <h3 className="text-center my-4">{artist?.name || "Loading..."}</h3>
-      <div className="list-group">{content}</div>
-    </>
-  );
+    return(
+        <>
+            <h3 className="text-center my-4">
+                    {artist?.name} 
+            </h3>
+            <div className="list-group">
+                {content}
+            </div>
+        </>
+    )
+}
 };
 
 export default Albums;

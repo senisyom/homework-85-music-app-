@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createArtist } from "./artistsThunk";
 import { ArtistMutation } from "../types";
 import { useAppDispatch } from "../app/hooks";
 import FileInput from "../FileInput/FileInput";
+import { createArtist
 
 const ArtistForm = () => {
   const navigate = useNavigate();

@@ -1,24 +1,43 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IAlbum } from "../../../types";
-import { fetchAlbums, fetchAlbum } from "./albumThunk";
+import {
+  createAlbum,
+  deleteAlbum,
+  fetchAlbum,
+  fetchAlbums,
+  publishAlbum,
+} from "./albumsThunk";
+
 interface AlbumsState {
   items: IAlbum[];
   oneAlbum: IAlbum | null;
   albumFetching: boolean;
   itemsFetching: boolean;
 }
+
 const initialState: AlbumsState = {
   items: [],
   oneAlbum: null,
   albumFetching: false,
   itemsFetching: false,
 };
+
 export const albumsSlice = createSlice({
   name: "albums",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(fetchAlbums.pending, (state) => {
+        state.itemsFetching = true;
+      })
+      .addCase(fetchAlbums.fulfilled, (state, { payload: albums }) => {
+        state.itemsFetching = false;
+        state.items = albums;
+      })
+      .addCase(fetchAlbums.rejected, (state) => {
+        state.itemsFetching = false;
+      })
       .addCase(fetchAlbum.pending, (state) => {
         state.itemsFetching = true;
       })
@@ -29,14 +48,31 @@ export const albumsSlice = createSlice({
       .addCase(fetchAlbum.rejected, (state) => {
         state.itemsFetching = false;
       })
-      .addCase(fetchAlbums.pending, (state) => {
+      .addCase(createAlbum.pending, (state) => {
         state.itemsFetching = true;
       })
-      .addCase(fetchAlbums.fulfilled, (state, { payload: albums }) => {
+      .addCase(createAlbum.fulfilled, (state) => {
         state.itemsFetching = false;
-        state.items = albums;
       })
-      .addCase(fetchAlbums.rejected, (state) => {
+      .addCase(createAlbum.rejected, (state) => {
+        state.itemsFetching = false;
+      })
+      .addCase(publishAlbum.pending, (state) => {
+        state.itemsFetching = true;
+      })
+      .addCase(publishAlbum.fulfilled, (state) => {
+        state.itemsFetching = false;
+      })
+      .addCase(publishAlbum.rejected, (state) => {
+        state.itemsFetching = false;
+      })
+      .addCase(deleteAlbum.pending, (state) => {
+        state.itemsFetching = true;
+      })
+      .addCase(deleteAlbum.fulfilled, (state) => {
+        state.itemsFetching = false;
+      })
+      .addCase(deleteAlbum.rejected, (state) => {
         state.itemsFetching = false;
       });
   },
@@ -46,5 +82,8 @@ export const albumsSlice = createSlice({
     selectLoad: (state) => state.itemsFetching,
   },
 });
+
 export const albumsReducer = albumsSlice.reducer;
-export const { selectAlbums, selectLoad, selectOneAlbum } = albumsSlice.selectors;
+
+export const { selectAlbums, selectLoad, selectOneAlbum } =
+  albumsSlice.selectors;

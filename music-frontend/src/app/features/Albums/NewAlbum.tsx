@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import FileInput from "../../UI/FileInput/FileInput";
+import FileInput from "../../../FileInput/FileInput";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { AlbumMutation } from "../../types";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { AlbumMutation } from "../../../types";
 import { fetchArtists } from "../Artists/artistsThunk";
 import { selectArtists, selectLoadArtist } from "../Artists/artistsSlice";
 import { CircularProgress } from "@mui/material";
-import { createAlbum } from "./albumsThunk";
+import { createAlbum } from "./albumThunk";
 
 const NewAlbum = () => {
   const navigate = useNavigate();

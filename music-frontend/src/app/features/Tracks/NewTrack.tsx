@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectArtists, selectLoadArtist } from "../Artists/artistsSlice";
-import { selectAlbums, selectLoad } from "../Albums/albumsSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useEffect, useState } from "react";
 import { fetchArtists } from "../Artists/artistsThunk";
-import { fetchAlbums } from "../Albums/albumsThunk";
-import { IAlbum, TrackMutation } from "../../types";
 import { CircularProgress } from "@mui/material";
+import { selectArtists, selectLoadArtist } from "../Artists/artistsSlice";
 import { createTrack } from "./trackThunk";
+import { IAlbum, TrackMutation } from "../../types";
+import { fetchAlbums } from "../Albums/albumThunk";
+import { selectAlbums, selectLoad } from "../Albums/albumSlice";
 
 const NewTrack = () => {
   const navigate = useNavigate();
