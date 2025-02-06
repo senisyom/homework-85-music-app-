@@ -20,7 +20,7 @@ const Albums = ()=>{
     const albums = useAppSelector(selectAlbums);
     const user = useAppSelector(selectUser);
     
-    const albumArtist:IAlbum[] = [];
+    let albumArtist:IAlbum[] = [];
     if(albums.length > 0){
         albums.map((album)=>{
             if (album.artist === id) {

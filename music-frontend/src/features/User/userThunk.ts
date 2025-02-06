@@ -9,7 +9,19 @@ export const register = createAsyncThunk<IUser, RegisterMutation, {rejectValue: 
     'user/register',
     async(registerMutation, {rejectWithValue})=>{
         try{
-            const {data: user} = await axiosApi.post<IUser>('/user', registerMutation);
+            const formData = new FormData();
+            const keys = Object.keys(registerMutation) as (keyof RegisterMutation)[];
+            keys.forEach((key) => {
+                const value = registerMutation[key];
+                if (value) {
+                    console.log(value);
+                    
+                    formData.append(key, value);
+                }
+            });
+            console.log(formData);
+            
+            const {data: user} = await axiosApi.post<IUser>('/user', formData);
             return user;
         }catch(e){
             if(isAxiosError(e) && e.response && e.response.status === 400){
@@ -36,6 +48,23 @@ export const login = createAsyncThunk<IUser, LoginMutation, {rejectValue: Global
         }
     },
 );
+
+export const googleLogin = createAsyncThunk<IUser, string, { rejectValue: GlobalError }>(
+    'users/googleLogin',
+    async (credential, { rejectWithValue }) => {
+      try {
+        const {data: user} = await axiosApi.post<IUser>('/user/google', { credential });
+        console.log(user);
+        
+        return user;
+      } catch (e) {
+        if (isAxiosError(e) && e.response && e.response.status === 400) {
+            return rejectWithValue(e.response.data as GlobalError);
+        }
+            throw e;
+        }
+    },  
+);  
 
 export const logout = createAsyncThunk<void, void, { state: RootState }>(
     'users/logout',

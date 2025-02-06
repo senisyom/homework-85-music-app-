@@ -72,5 +72,4 @@ artistRouter.delete('/:id', auth, permit('admin'), async(req, res, next)=>{
     }
 });
 
-
 export default artistRouter;
